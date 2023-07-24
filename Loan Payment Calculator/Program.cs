@@ -8,9 +8,9 @@ namespace LoanPaymentCalculator
 {
     class Program
     {
-        static int MAX_NUMBER_MONTHS = 360;
+        static private int MAX_NUMBER_MONTHS = 360;
 
-        static void ShowMenu()
+        private static void DisplayMenu()
         {
             Console.WriteLine("Menu:");
             Console.WriteLine("1. Single Loan Payment");
@@ -23,10 +23,11 @@ namespace LoanPaymentCalculator
         {
             while (true)
             {
-                ShowMenu();
+                DisplayMenu();
 
                 Console.WriteLine("Enter your choice: ");
                 string? choice = Console.ReadLine()?.Trim();
+                Console.WriteLine();
 
                 if (string.IsNullOrWhiteSpace(choice))
                 {
@@ -55,6 +56,10 @@ namespace LoanPaymentCalculator
                         continue;
                     }
 
+                    Loan loan = new Loan(loanAmont, intRate, loanTerm);
+                    double monthlyPayment = loan.CalculateLoanPayment();
+                    Console.WriteLine();
+                    Console.WriteLine($"Your monthly payment is {monthlyPayment:C2}");
 
                 }
                 else if (choice == "2")
@@ -67,6 +72,12 @@ namespace LoanPaymentCalculator
                     Console.WriteLine("Application closed.");
                     break;
                 }
+                else
+                {
+                    Console.WriteLine("Invalid choice. Please, try again.");
+                }
+
+                Console.WriteLine();
             }
             
         }
